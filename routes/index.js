@@ -1,5 +1,8 @@
-var express = require('express');
-var router = express.Router();
+"use strict";
+
+const express = require('express'),
+    router = express.Router(),
+    User = require('../model/user');
 
 // GET /
 router.get('/', function(req, res, next) {
@@ -31,7 +34,12 @@ router.get('/register', function(req, res, next) {
 
 // POST /register
 router.post('/register', function(req, res, next) {
-
+    User.create(req.body, (error, user) => {
+        if (error) {
+            return next(error);
+        }
+        res.redirect('/profile');
+    });
 });
 
 module.exports = router;
