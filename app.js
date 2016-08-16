@@ -3,7 +3,14 @@
 const express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
+    session = require('express-session'),
     app = express();
+
+app.use(session({
+    secret: 'treehouse loves you.',
+    resave: true,
+    saveUninitialized: false
+}));
 
 mongoose.connect('mongodb://localhost:27017/bookworm');
 mongoose.connection.on('error',
